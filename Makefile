@@ -120,7 +120,9 @@ expand:
 	@sudo /bin/r01.expand
 fbterm:
 	@echo "$(BLUE)Adding the blinking pointer...$(RESET)"	
-	@cp -fv fbterm/.* ~/
+	@cp -fv fbterm/.bash_profile ~/
+	@cp -fv fbterm/.bashrc ~/
+	@cp -fv fbterm/.fbtermrc ~/
 	@echo "$(BLUE)Now login via any of tty 1-6 and you will get it...$(RESET)"	
 
 help:
