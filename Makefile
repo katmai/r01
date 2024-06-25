@@ -18,38 +18,42 @@ console:
 
 fixes:
 	@echo "$(GREEN)Fixing the legacy keyring warning...$(RESET)"
-	@cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
+	@sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
 
 updates:
 	@echo "$(GREEN)Running the update...$(RESET)"
-	@apt update && apt -y upgrade && apt -y autoremove
+	@sudo apt update &&sudo  apt -y upgrade &&sudo apt -y autoremove
 
 tweaks:
 	@echo "$(GREEN)Enabling SSH...$(RESET)"
-	@systemctl enable --now sshd
+	@sudo systemctl enable --now sshd
 	@echo "$(GREEN)Setting Timezone...$(RESET)"
-	@timedatectl set-timezone ${TIMEZONE}
+	@sudo timedatectl set-timezone ${TIMEZONE}
 	@echo "$(GREEN)Increasing the font size. Just magical...$(RESET)"
-	@sed -i 's@FONTSIZE="8x16"@FONTSIZE="12x24"@' /etc/default/console-setup
+	@sudo sed -i 's@FONTSIZE="8x16"@FONTSIZE="12x24"@' /etc/default/console-setup
 	@echo "$(GREEN)No reporting...$(RESET)"
-	@systemctl disable whoopsie.service
+	@sudo systemctl disable whoopsie.service
 	@echo "$(GREEN)No unattended upgrades...$(RESET)"
-	@systemctl disable unattended-upgrades.service
+	@sudo systemctl disable unattended-upgrades.service
 	@echo "$(GREEN)Turn off printing...$(RESET)"
-	@systemctl disable cups.service
-	@systemctl disable cups-browsed
-	@systemctl disable devterm-printer
-	@systemctl disable devterm-socat.service
+	@sudo systemctl disable cups.service
+	@sudo systemctl disable cups-browsed
+	@sudo systemctl disable devterm-printer
+	@sudo systemctl disable devterm-socat.service
 	@echo "$(GREEN)Turn off audio...$(RESET)"
-	@systemctl disable devterm-audio-patch.service
+	@sudo systemctl disable devterm-audio-patch.service
 	@echo "$(GREEN)Turn off firewall...$(RESET)"
-	@systemctl disable ufw
+	@sudo systemctl disable ufw
 	@echo "$(GREEN)No snapd...$(RESET)"
-	@systemctl disable snapd
+	@sudo systemctl disable snapd
 	@echo "$(GREEN)No jails...$(RESET)"
-	@systemctl disable apparmor
+	@sudo systemctl disable apparmor
 	@echo "$(GREEN)No commercial...$(RESET)"
-	@systemctl disable ubuntu-advantage
+	@sudo systemctl disable ubuntu-advantage
+	@echo "$(GREEN)Disable user services...$(RESET)"
+	@systemctl --user disable pulseaudio.service
+	@systemctl --user disable pipewire.service
+	@systemctl --user disable pipewire-media-session.service
 
 binaries:
 	@echo "$(GREEN)Installing custom binaries...$(RESET)"
