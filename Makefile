@@ -65,7 +65,7 @@ tweaks:
 	@sudo systemctl --global disable pulseaudio.service
 	@sudo systemctl --global disable pipewire.service
 	@sudo systemctl --global disable pipewire-media-session.service
-	@sudo "$(GREEN)Setting fan control...$(RESET)"
+	@echo "$(GREEN)Setting fan control...$(RESET)"
 	@sudo sed -i 's@THRESHOLD_HIGH=70000@THRESHOLD_HIGH=${TEMP_HIGH}@' /usr/local/bin/monitor_temp.sh
 	@sudo sed -i 's@THRESHOLD_LOW=70000@THRESHOLD_LOW=${TEMP_LOW}@' /usr/local/bin/monitor_temp.sh
 
@@ -82,30 +82,30 @@ revert:
 	@echo "$(YELLOW)Removing custom binaries...$(RESET)"
 	@sudo rm -rfv /bin/r01.*
 	@echo "$(YELLOW)Undoing tweaks...$(RESET)"
-	@echo "$(GREEN)Disabling SSH...$(RESET)"
+	@echo "$(YELLOW)Disabling SSH...$(RESET)"
 	@sudo systemctl disable sshd
-	@echo "$(GREEN)Restore font...$(RESET)"
+	@echo "$(YELLOW)Restore font...$(RESET)"
 	@sudo sed -i 's@FONTSIZE="12x24"@FONTSIZE="8x16"@' /etc/default/console-setup
-	@echo "$(GREEN)Yes reporting...$(RESET)"
+	@echo "$(YELLOW)Yes reporting...$(RESET)"
 	@sudo systemctl enable whoopsie.service
-	@echo "$(GREEN)Yes unattended upgrades...$(RESET)"
+	@echo "$(YELLOW)Yes unattended upgrades...$(RESET)"
 	@sudo systemctl enable unattended-upgrades.service
-	@echo "$(GREEN)Turn on printing...$(RESET)"
+	@echo "$(YELLOW)Turn on printing...$(RESET)"
 	@sudo systemctl enable cups.service
 	@sudo systemctl enable cups-browsed
 	@sudo systemctl enable devterm-printer
 	@sudo systemctl enable devterm-socat.service
-	@echo "$(GREEN)Turn on audio...$(RESET)"
+	@echo "$(YELLOW)Turn on audio...$(RESET)"
 	@sudo systemctl enable devterm-audio-patch.service
-	@echo "$(GREEN)Turn on firewall...$(RESET)"
+	@echo "$(YELLOW)Turn on firewall...$(RESET)"
 	@sudo systemctl enable ufw
-	@echo "$(GREEN)Yes snapd...$(RESET)"
+	@echo "$(YELLOW)Yes snapd...$(RESET)"
 	@sudo systemctl enable snapd
-	@echo "$(GREEN)Yes jails...$(RESET)"
+	@echo "$(YELLOW)Yes jails...$(RESET)"
 	@sudo systemctl enable apparmor
-	@echo "$(GREEN)Yes commercial...$(RESET)"
+	@echo "$(YELLOW)Yes commercial...$(RESET)"
 	@sudo systemctl enable ubuntu-advantage
-	@echo "$(GREEN)Enable systemctl user services...$(RESET)"
+	@echo "$(YELLOW)Enable systemctl user services...$(RESET)"
 	@sudo systemctl --global enable pulseaudio.socket
 	@sudo systemctl --global enable pulseaudio.service
 	@sudo systemctl --global enable pipewire.service
