@@ -83,7 +83,7 @@ revert:
 	@sudo rm -rfv /bin/r01.*
 	@echo "$(YELLOW)Undoing tweaks...$(RESET)"
 	@echo "$(YELLOW)Disabling SSH...$(RESET)"
-	@sudo systemctl disable sshd
+	@sudo systemctl disable ssh
 	@echo "$(YELLOW)Restore font...$(RESET)"
 	@sudo sed -i 's@FONTSIZE="12x24"@FONTSIZE="8x16"@' /etc/default/console-setup
 	@echo "$(YELLOW)Yes reporting...$(RESET)"
@@ -118,7 +118,11 @@ revert:
 expand:
 	@echo "$(BLUE)Expanding SD card...$(RESET)"
 	@sudo /bin/r01.expand
-	
+fbterm:
+	@echo "$(BLUE)Adding the blinking pointer...$(RESET)"	
+	@cp -fv fbterm/* ~/
+	@echo "$(BLUE)Now login via any of tty 1-6 and you will get it...$(RESET)"	
+
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
 	@echo "Targets:"
@@ -135,4 +139,4 @@ help:
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
 
 # Phony targets
-.PHONY: console fixes updates tweaks binaries all revert expand help
+.PHONY: all console fixes updates tweaks binaries revert expand help
