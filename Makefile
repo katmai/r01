@@ -133,10 +133,12 @@ help:
 	@echo "  $(GREEN)binaries$(RESET)            - A few grouped useful commands:"
 	@echo "                                        r01.battery - a few battery options."
 	@echo "                                        r01.systemd - a few common systemd options."
+	@echo "                                        r01.temp    - check temperature."
 	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
 	@echo "  $(YELLOW)revert$(RESET)             - Revert everything to the original."
+	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty."
 	@echo "  $(BLUE)expand$(RESET)               - Expand the "/" partition to the maximum storage available on the sdcard."
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
 
 # Phony targets
-.PHONY: all console fixes updates tweaks binaries revert expand help
+.PHONY: all console fixes updates tweaks binaries revert expand fbterm help
