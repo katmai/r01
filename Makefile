@@ -32,7 +32,7 @@ tweaks:
 	@echo "$(GREEN)Increasing the font size. Just magical...$(RESET)"
 	@sed -i 's@FONTSIZE="8x16"@FONTSIZE="12x24"@' /etc/default/console-setup
 
-@binaries:
+binaries:
 	@echo "$(GREEN)Installing custom binaries...$(RESET)"
 	@chmod 755 bin/* && sudo cp bin/* /bin/
 
@@ -44,4 +44,7 @@ help:
 	@echo "  $(GREEN)fixes$(RESET)               - Keyring fixes & others."
 	@echo "  $(GREEN)updates$(RESET)             - Run apt updates and cleanups."
 	@echo "  $(GREEN)tweaks$(RESET)              - Various comfort tweaks."
+	@echo "  $(GREEN)binaries$(RESET)            - A few grouped useful commands:"
+	@echo "                                        r01.battery - a few battery options."
+	@echo "                                        r01.systemd - a few common systemd options."
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
