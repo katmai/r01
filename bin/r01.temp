@@ -1,0 +1,3 @@
+#!/bin/bash
+temp=$(cat /sys/class/thermal/thermal_zone0/temp)
+echo "Current temperature from Thermal Zone 0 is: $(($temp / 1000))°C"

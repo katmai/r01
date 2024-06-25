@@ -13,3 +13,9 @@ git clone https://github.com/katmai/r01.git
 6. (optional) If you have a large sdcard and you'd like to expand the filesystem, run **make expand** .
 7. Once the setup is complete, reboot your DevTerm.
 8. For reverting all of the changes, run **make revert** and everything will be back as it was.
+
+## Various utilities
+r01.battery - gives a few battery insights.  
+r01.temp    - shows the current temperature.  
+r01.expand  - expands the "/" partition.
+r01.systemd - a few systemd options i use more frequently to debug.
