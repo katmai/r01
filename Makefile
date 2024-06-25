@@ -1,6 +1,10 @@
 # Makefile for the DevTerm R01 - katmai's cleanup
 # Variables
 TIMEZONE=Europe/Prague
+# This is for the fan control.
+# leaving the default on in the repo, but playing with it locally.
+TEMP_HIGH=70000 # 42000
+TEMP_LOW=70000 # 37000
 
 # ANSI color codes
 GREEN=$(shell tput -Txterm setaf 2)
@@ -16,23 +20,23 @@ all: console fixes updates tweaks binaries
 console:
 	@echo "$(GREEN)Turning off graphical interface. Default to console & no autologin...$(RESET)"
 	@mkdir ~/bak
-	@sudo mv /etc/systemd/system/getty@tty1.service.d ~/bak/
-	@mv ~/.bash_profile ~/bak/
+	@sudo mv -v /etc/systemd/system/getty@tty1.service.d ~/bak/
+	@mv -v ~/.bash_profile ~/bak/
 
 fixes:
 	@echo "$(GREEN)Fixing the legacy keyring warning...$(RESET)"
-	@sudo cp /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
+	@sudo cp -v /etc/apt/trusted.gpg /etc/apt/trusted.gpg.d
 
 updates:
 	@echo "$(GREEN)Running the update...$(RESET)"
-	@sudo apt update &&sudo  apt -y upgrade &&sudo apt -y autoremove
+	@sudo apt update && sudo  apt -y upgrade && sudo apt -y autoremove
 	@echo "$(GREEN)Installing a few necessary things...$(RESET)"
 	@sudo apt -y install \
-	tree
+	tree devterm-fan-daemon-r01
 
 tweaks:
 	@echo "$(GREEN)Enabling SSH...$(RESET)"
-	@sudo systemctl enable --now sshd
+	@sudo systemctl enable sshd
 	@echo "$(GREEN)Setting Timezone...$(RESET)"
 	@sudo timedatectl set-timezone ${TIMEZONE}
 	@echo "$(GREEN)Increasing the font size. Just magical...$(RESET)"
@@ -61,6 +65,9 @@ tweaks:
 	@sudo systemctl --global disable pulseaudio.service
 	@sudo systemctl --global disable pipewire.service
 	@sudo systemctl --global disable pipewire-media-session.service
+	@sudo "$(GREEN)Setting fan control...$(RESET)"
+	@sudo sed -i 's@THRESHOLD_HIGH=70000@THRESHOLD_HIGH=${TEMP_HIGH}@' /usr/local/bin/monitor_temp.sh
+	@sudo sed -i 's@THRESHOLD_LOW=70000@THRESHOLD_LOW=${TEMP_LOW}@' /usr/local/bin/monitor_temp.sh
 
 ## More systemctl
 # systemctl --user --reverse list-dependencies pulseaudio
@@ -73,10 +80,10 @@ binaries:
 revert:
 	@echo "$(YELLOW)Reverting all changes...$(RESET)"
 	@echo "$(YELLOW)Removing custom binaries...$(RESET)"
-	@sudo rm -rf /bin/r01.*
+	@sudo rm -rfv /bin/r01.*
 	@echo "$(YELLOW)Undoing tweaks...$(RESET)"
 	@echo "$(GREEN)Disabling SSH...$(RESET)"
-	@sudo systemctl disable --now sshd
+	@sudo systemctl disable sshd
 	@echo "$(GREEN)Restore font...$(RESET)"
 	@sudo sed -i 's@FONTSIZE="12x24"@FONTSIZE="8x16"@' /etc/default/console-setup
 	@echo "$(GREEN)Yes reporting...$(RESET)"
@@ -103,9 +110,10 @@ revert:
 	@sudo systemctl --global enable pulseaudio.service
 	@sudo systemctl --global enable pipewire.service
 	@sudo systemctl --global enable pipewire-media-session.service
-	@sudo mv ~/bak/getty@tty1.service.d /etc/systemd/system/
-	@mv ~/bak/.bash_profile ~/
+	@sudo mv -v ~/bak/getty@tty1.service.d /etc/systemd/system/
+	@mv -v ~/bak/.bash_profile ~/
 	@sudo systemctl daemon-reload
+	@sudo shutdown -h now
 	
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
