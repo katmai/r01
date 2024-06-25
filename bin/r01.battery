@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Define the commands for each option
+CAPACITY_CMD="cat /sys/class/power_supply/axp20x-battery/capacity"
+HEALTH_CMD="cat /sys/class/power_supply/axp20x-battery/health"
+STATUS_CMD="cat /sys/class/power_supply/axp20x-battery/status"
+
+# Function to display the menu and read the user choice
+choose_option() {
+    echo "Please choose an option:"
+    echo "1) Capacity"
+    echo "2) Health"
+    echo "3) Status"
+    read -p "Enter the number of your choice: " choice
+}
+
+# If no arguments are passed, prompt the user to choose
+if [ $# -eq 0 ]; then
+    choose_option
+    case $choice in
+        1)
+            eval $CAPACITY_CMD
+            ;;
+        2)
+            eval $HEALTH_CMD
+            ;;
+        3)
+            eval $STATUS_CMD
+            ;;
+        *)
+            echo "Invalid choice. Please run the script again."
+            ;;
+    esac
+else
+    echo "This script does not accept arguments. Run without arguments to choose an option."
+fi
