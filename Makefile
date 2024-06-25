@@ -9,6 +9,9 @@ RED=$(shell tput -Txterm setaf 1)
 BLUE=$(shell tput -Txterm setaf 6)
 RESET=$(shell tput -Txterm sgr0)
 
+# Just do it all
+all: console fixes updates tweaks binaries
+
 # First things first. Give us the console, without autologin.
 console:
 	@echo "$(GREEN)Turning off graphical interface. Default to console & no autologin...$(RESET)"
@@ -23,6 +26,9 @@ fixes:
 updates:
 	@echo "$(GREEN)Running the update...$(RESET)"
 	@sudo apt update &&sudo  apt -y upgrade &&sudo apt -y autoremove
+	@echo "$(GREEN)Installing a few necessary things...$(RESET)"
+	@sudo apt -y install \
+	tree
 
 tweaks:
 	@echo "$(GREEN)Enabling SSH...$(RESET)"
@@ -50,15 +56,57 @@ tweaks:
 	@sudo systemctl disable apparmor
 	@echo "$(GREEN)No commercial...$(RESET)"
 	@sudo systemctl disable ubuntu-advantage
-	@echo "$(GREEN)Disable user services...$(RESET)"
-	@systemctl --user disable pulseaudio.service
-	@systemctl --user disable pipewire.service
-	@systemctl --user disable pipewire-media-session.service
+	@echo "$(GREEN)Disable systemctl user services...$(RESET)"
+	@sudo systemctl --global disable pulseaudio.socket
+	@sudo systemctl --global disable pulseaudio.service
+	@sudo systemctl --global disable pipewire.service
+	@sudo systemctl --global disable pipewire-media-session.service
+
+## More systemctl
+# systemctl --user --reverse list-dependencies pulseaudio
+# systemctl --user list-dependencies default.target
 
 binaries:
 	@echo "$(GREEN)Installing custom binaries...$(RESET)"
 	@chmod 755 bin/* && sudo cp -v bin/* /bin/
 
+revert:
+	@echo "$(YELLOW)Reverting all changes...$(RESET)"
+	@echo "$(YELLOW)Removing custom binaries...$(RESET)"
+	@sudo rm -rf /bin/r01.*
+	@echo "$(YELLOW)Undoing tweaks...$(RESET)"
+	@echo "$(GREEN)Disabling SSH...$(RESET)"
+	@sudo systemctl disable --now sshd
+	@echo "$(GREEN)Restore font...$(RESET)"
+	@sudo sed -i 's@FONTSIZE="12x24"@FONTSIZE="8x16"@' /etc/default/console-setup
+	@echo "$(GREEN)Yes reporting...$(RESET)"
+	@sudo systemctl enable whoopsie.service
+	@echo "$(GREEN)Yes unattended upgrades...$(RESET)"
+	@sudo systemctl enable unattended-upgrades.service
+	@echo "$(GREEN)Turn on printing...$(RESET)"
+	@sudo systemctl enable cups.service
+	@sudo systemctl enable cups-browsed
+	@sudo systemctl enable devterm-printer
+	@sudo systemctl enable devterm-socat.service
+	@echo "$(GREEN)Turn on audio...$(RESET)"
+	@sudo systemctl enable devterm-audio-patch.service
+	@echo "$(GREEN)Turn on firewall...$(RESET)"
+	@sudo systemctl enable ufw
+	@echo "$(GREEN)Yes snapd...$(RESET)"
+	@sudo systemctl enable snapd
+	@echo "$(GREEN)Yes jails...$(RESET)"
+	@sudo systemctl enable apparmor
+	@echo "$(GREEN)Yes commercial...$(RESET)"
+	@sudo systemctl enable ubuntu-advantage
+	@echo "$(GREEN)Enable systemctl user services...$(RESET)"
+	@sudo systemctl --global enable pulseaudio.socket
+	@sudo systemctl --global enable pulseaudio.service
+	@sudo systemctl --global enable pipewire.service
+	@sudo systemctl --global enable pipewire-media-session.service
+	@sudo mv ~/bak/getty@tty1.service.d /etc/systemd/system/
+	@mv ~/bak/.bash_profile ~/
+	@sudo systemctl daemon-reload
+	
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
 	@echo "Targets:"
@@ -69,4 +117,9 @@ help:
 	@echo "  $(GREEN)binaries$(RESET)            - A few grouped useful commands:"
 	@echo "                                        r01.battery - a few battery options."
 	@echo "                                        r01.systemd - a few common systemd options."
+	@echo "  $(GREEN)all$(RESET)            - Just run everything and let it go."
+	@echo "  $(GREEN)revert$(RESET)            - Revert everything to the original."
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
+
+# Phony targets
+.PHONY: console fixes updates tweaks binaries all revert help

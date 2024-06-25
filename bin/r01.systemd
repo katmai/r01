@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # Define the commands for each option
-CRITICAL_CHAIN="systemd-analyze critical-chain"
-BLAME="systemd-analyze blame"
-STATUS="systemctl status"
-LIST_DEPENDENCIES="systemctl list-dependencies"
-LIST_SERVICES="systemctl list-units --type=service"
-LIST_SLICES="systemctl list-units --type=slice"
+CRITICAL_CHAIN="sudo systemd-analyze critical-chain"
+BLAME="sudo systemd-analyze blame"
+STATUS="sudo systemctl status"
+SYS_LIST_DEPENDENCIES="sudo systemctl list-dependencies"
+USR_LIST_DEPENDENCIES="systemctl --user list-dependencies"
+LIST_SERVICES="sudo systemctl list-unit-files --type=service"
+LIST_SLICES="sudo systemctl list-units --type=slice"
 
 # Function to display the menu and read the user choice
 choose_option() {
@@ -14,9 +15,10 @@ choose_option() {
     echo "1) Critical Chain - a tree of the time-critical chain of units."
     echo "2) Blame - a list of all running units, ordered by the time they took to initialize."
     echo "3) Status - tree list of all services."
-    echo "4) Dependencies - tree list of services and dependencies."
-    echo "5) Services - list current services."
-    echo "6) Slices - list slices. (A slice unit is a concept for hierarchically managing resources of a group of processes.)"
+    echo "4) Dependencies - tree list of services and dependencies (system)."
+    echo "5) Dependencies - tree list of services and dependencies (user)."
+    echo "6) Services - list current services."
+    echo "7) Slices - list slices. (A slice unit is a concept for hierarchically managing resources of a group of processes.)"
     read -p "Enter the number of your choice: " choice
 }
 
@@ -34,12 +36,15 @@ if [ $# -eq 0 ]; then
             eval $STATUS
             ;;
         4)
-            eval $LIST_DEPENDENCIES
+            eval $SYS_LIST_DEPENDENCIES
             ;;
         5)
-            eval $LIST_SERVICES
+            eval $USR_LIST_DEPENDENCIES
             ;;
         6)
+            eval $LIST_SERVICES
+            ;;
+        7)
             eval $LIST_SLICES
             ;;
         *)
