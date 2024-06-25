@@ -14,7 +14,7 @@ BLUE=$(shell tput -Txterm setaf 6)
 RESET=$(shell tput -Txterm sgr0)
 
 # Just do it all
-all: console fixes updates tweaks binaries
+all: console fixes updates tweaks binaries expand
 
 # First things first. Give us the console, without autologin.
 console:
@@ -29,14 +29,14 @@ fixes:
 
 updates:
 	@echo "$(GREEN)Running the update...$(RESET)"
-	@sudo apt update && sudo  apt -y upgrade && sudo apt -y autoremove
+	@sudo apt update && sudo  apt -y --force-yes upgrade && sudo apt -y autoremove
 	@echo "$(GREEN)Installing a few necessary things...$(RESET)"
 	@sudo apt -y install \
 	tree devterm-fan-daemon-r01 cloud-guest-utils
 
 tweaks:
 	@echo "$(GREEN)Enabling SSH...$(RESET)"
-	@sudo systemctl enable sshd
+	@sudo systemctl enable ssh
 	@echo "$(GREEN)Setting Timezone...$(RESET)"
 	@sudo timedatectl set-timezone ${TIMEZONE}
 	@echo "$(GREEN)Increasing the font size. Just magical...$(RESET)"
@@ -135,4 +135,4 @@ help:
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
 
 # Phony targets
-.PHONY: console fixes updates tweaks binaries all revert help
+.PHONY: console fixes updates tweaks binaries all revert expand help
