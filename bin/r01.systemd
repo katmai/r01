@@ -5,6 +5,8 @@ CRITICAL_CHAIN="systemd-analyze critical-chain"
 BLAME="systemd-analyze blame"
 STATUS="systemctl status"
 LIST_DEPENDENCIES="systemctl list-dependencies"
+LIST_SERVICES="systemctl list-units --type=service"
+LIST_SLICES="systemctl list-units --type=slice"
 
 # Function to display the menu and read the user choice
 choose_option() {
@@ -13,6 +15,8 @@ choose_option() {
     echo "2) Blame - a list of all running units, ordered by the time they took to initialize."
     echo "3) Status - tree list of all services."
     echo "4) Dependencies - tree list of services and dependencies."
+    echo "5) Services - list current services."
+    echo "6) Slices - list slices. (A slice unit is a concept for hierarchically managing resources of a group of processes.)"
     read -p "Enter the number of your choice: " choice
 }
 
@@ -31,6 +35,12 @@ if [ $# -eq 0 ]; then
             ;;
         4)
             eval $LIST_DEPENDENCIES
+            ;;
+        5)
+            eval $LIST_SERVICES
+            ;;
+        6)
+            eval $LIST_SLICES
             ;;
         *)
             echo "Invalid choice. Please run the script again."

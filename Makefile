@@ -31,12 +31,30 @@ tweaks:
 	@timedatectl set-timezone ${TIMEZONE}
 	@echo "$(GREEN)Increasing the font size. Just magical...$(RESET)"
 	@sed -i 's@FONTSIZE="8x16"@FONTSIZE="12x24"@' /etc/default/console-setup
+	@echo "$(GREEN)No reporting...$(RESET)"
+	@systemctl disable whoopsie.service
+	@echo "$(GREEN)No unattended upgrades...$(RESET)"
+	@systemctl disable unattended-upgrades.service
+	@echo "$(GREEN)Turn off printing...$(RESET)"
+	@systemctl disable cups.service
+	@systemctl disable cups-browsed
+	@systemctl disable devterm-printer
+	@systemctl disable devterm-socat.service
+	@echo "$(GREEN)Turn off audio...$(RESET)"
+	@systemctl disable devterm-audio-patch.service
+	@echo "$(GREEN)Turn off firewall...$(RESET)"
+	@systemctl disable ufw
+	@echo "$(GREEN)No snapd...$(RESET)"
+	@systemctl disable snapd
+	@echo "$(GREEN)No jails...$(RESET)"
+	@systemctl disable apparmor
+	@echo "$(GREEN)No commercial...$(RESET)"
+	@systemctl disable ubuntu-advantage
 
 binaries:
 	@echo "$(GREEN)Installing custom binaries...$(RESET)"
-	@chmod 755 bin/* && sudo cp bin/* /bin/
+	@chmod 755 bin/* && sudo cp -v bin/* /bin/
 
-# Help
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
 	@echo "Targets:"
