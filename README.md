@@ -10,5 +10,6 @@ git clone https://github.com/katmai/r01.git
 3. **cd r01**
 4. Check variables at the top. Edit your timezone.
 5. **make help** to see the available options or **make all** if you're comfortable with everything.
-6. Once the setup is complete, reboot your DevTerm.
-7. For reverting all of the changes, run **make revert** and everything will be back as it was.
+6. (optional) If you have a large sdcard and you'd like to expand the filesystem, run **make expand** .
+7. Once the setup is complete, reboot your DevTerm.
+8. For reverting all of the changes, run **make revert** and everything will be back as it was.

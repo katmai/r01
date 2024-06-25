@@ -32,7 +32,7 @@ updates:
 	@sudo apt update && sudo  apt -y upgrade && sudo apt -y autoremove
 	@echo "$(GREEN)Installing a few necessary things...$(RESET)"
 	@sudo apt -y install \
-	tree devterm-fan-daemon-r01
+	tree devterm-fan-daemon-r01 cloud-guest-utils
 
 tweaks:
 	@echo "$(GREEN)Enabling SSH...$(RESET)"
@@ -114,6 +114,10 @@ revert:
 	@mv -v ~/bak/.bash_profile ~/
 	@sudo systemctl daemon-reload
 	@sudo shutdown -h now
+
+expand:
+	@echo "$(BLUE)Expanding SD card...$(RESET)"
+	@sudo /bin/r01.expand
 	
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
@@ -125,8 +129,9 @@ help:
 	@echo "  $(GREEN)binaries$(RESET)            - A few grouped useful commands:"
 	@echo "                                        r01.battery - a few battery options."
 	@echo "                                        r01.systemd - a few common systemd options."
-	@echo "  $(GREEN)all$(RESET)            - Just run everything and let it go."
-	@echo "  $(GREEN)revert$(RESET)            - Revert everything to the original."
+	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
+	@echo "  $(YELLOW)revert$(RESET)             - Revert everything to the original."
+	@echo "  $(BLUE)expand$(RESET)               - Expand the "/" partition to the maximum storage available on the sdcard."
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
 
 # Phony targets

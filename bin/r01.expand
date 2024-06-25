@@ -1,0 +1,4 @@
+#!/bin/bash -x
+# Expand the "/" partition (partition 4) to fill the maximum space available on the card
+sudo growpart /dev/mmcblk0 4
+sudo resize2fs /dev/mmcblk0p4
