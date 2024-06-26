@@ -14,7 +14,7 @@ BLUE=$(shell tput -Txterm setaf 6)
 RESET=$(shell tput -Txterm sgr0)
 
 # Just do it all
-all: console fixes updates tweaks binaries cursor expand
+all: console fixes updates tweaks binaries
 
 # First things first. Give us the console, without autologin.
 console:
