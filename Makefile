@@ -152,7 +152,7 @@ help:
 	@echo "                                        r01.temp    - check temperature."
 	@echo "                                        r01.undo    - undo a few things."
 	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
-	@echo "  $(YELLOW)revert$(RESET)             - Revert everything to the original."
+	@echo "  $(YELLOW)revert$(RESET)             - Revert the majority to the original."
 	@echo "  $(BLUE)cursor$(RESET)               - Enable cursor visibility (Not 'the one', but it will do the job)."
 	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
 	@echo "  $(BLUE)expand$(RESET)               - Expand the "/" partition to the maximum storage available on the sdcard."

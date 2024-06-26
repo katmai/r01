@@ -16,9 +16,10 @@ git clone https://github.com/katmai/r01.git
 4. Check variables at the top. Edit your timezone.
 5. **make help** to see the available options or **make all** if you're comfortable with everything.
 6. Once the setup is complete, reboot your DevTerm.
-7. For reverting all of the changes, run **make revert** and everything will be back as it was.
-8. (optional) If you have a large sdcard and you'd like to expand the filesystem, run **make expand** .
-9. (optional) If you'd like to have the blinking cursor, run **make fbterm** and then logon via any of the tty's.
+7. **make revert** - Revert the majority to the original.
+- (optional) - **make expand** - If you have a large sdcard and you'd like to expand the filesystem.
+- (optional) - **make cursor** - Enable cursor visibility (Not 'the one', but it will do the job).
+- (optional) - **make fbterm** - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
 
 
 ## Various utilities
