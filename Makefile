@@ -159,6 +159,7 @@ notneeded:
 	@sudo apt purge -y apport apport-symptoms
 	@echo "$(GREEN)iSCSI off...$(RESET)"
 	@sudo systemctl disable open-iscsi.service
+	@sudo systemctl disable iscsid.socket
 	@echo "$(GREEN)Containers would be silly...$(RESET)"
 	@sudo systemctl disable lxd-agent.service
 	@sudo reboot
