@@ -21,6 +21,7 @@ git clone https://github.com/katmai/r01.git
 - **make expand** - If you have a large sdcard and you'd like to expand the filesystem.
 - **make cursor** - Enable cursor visibility (Not 'the one', but it will do the job).
 - **make accelerated** - Install the fbturbo Accelerated 2D graphics in X11 driver.
+- **make notneeded** - This is a list of services that i personally don't see the need for, but which you may want to enable in some specific cases where you need particular functionality.
 - **make fbterm** - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
 - **make revert** - Revert the majority to the original. (can't undo apt updates. that would be silly)
 

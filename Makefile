@@ -58,6 +58,7 @@ tweaks:
 	@sudo systemctl disable snapd
 	@echo "$(GREEN)No jails...$(RESET)"
 	@sudo systemctl disable apparmor
+	@sudo apt purge -y apparmor
 	@echo "$(GREEN)No commercial...$(RESET)"
 	@sudo systemctl disable ubuntu-advantage
 	@echo "$(GREEN)Disable systemctl user services...$(RESET)"
@@ -68,11 +69,9 @@ tweaks:
 	@echo "$(GREEN)Setting fan control...$(RESET)"
 	@sudo sed -i 's@THRESHOLD_HIGH=70000@THRESHOLD_HIGH=${TEMP_HIGH}@' /usr/local/bin/monitor_temp.sh
 	@sudo sed -i 's@THRESHOLD_LOW=70000@THRESHOLD_LOW=${TEMP_LOW}@' /usr/local/bin/monitor_temp.sh
-
 ## More systemctl
 # systemctl --user --reverse list-dependencies pulseaudio
 # systemctl --user list-dependencies default.target
-# systemd-analyze critical-chain
 
 binaries:
 	@echo "$(GREEN)Installing custom binaries...$(RESET)"
@@ -101,6 +100,7 @@ revert:
 	@echo "$(YELLOW)Turn on firewall...$(RESET)"
 	@sudo systemctl enable ufw
 	@echo "$(YELLOW)Yes snapd...$(RESET)"
+	@echo apt -y install snapd
 	@sudo systemctl enable snapd
 	@echo "$(YELLOW)Yes jails...$(RESET)"
 	@sudo systemctl enable apparmor
@@ -146,6 +146,23 @@ accelerated:
 	@sudo apt install -y xf86-video-fbturbo-r01
 	@sudo reboot
 
+# This is a list of services that i personally don't see the need for, but which you may want to enable in some specific cases where you need said functionality.
+notneeded:
+	@echo "$(GREEN)Speed up boot time...$(RESET)"
+	@sudo systemctl disable NetworkManager-wait-online.service
+	@sudo systemctl disable systemd-networkd-wait-online.service
+	@echo "$(GREEN)Turning off rsync...$(RESET)"
+	@sudo systemctl disable rsync.service
+	@echo "$(GREEN)Network based RNG from pollinate servers...$(RESET)"
+	@sudo systemctl disable pollinate.service
+	@echo "$(GREEN)Not sending core dumps...$(RESET)"
+	@sudo apt purge -y apport apport-symptoms
+	@echo "$(GREEN)iSCSI off...$(RESET)"
+	@sudo systemctl disable open-iscsi.service
+	@echo "$(GREEN)Containers would be silly...$(RESET)"
+	@sudo systemctl disable lxd-agent.service
+	@sudo reboot
+
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
 	@echo "Targets:"
@@ -161,6 +178,7 @@ help:
 	@echo "                                        r01.stopx   - stop a startx session (tty1 - default. change variable if you prefer different)."
 	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
 	@echo "  $(YELLOW)revert$(RESET)             - Revert the majority to the original."
+	@echo "  $(BLUE)notneeded$(RESET)            - This is a list of services that i personally don't see the need for, but which you may want to enable in some specific cases where you need particular functionality."
 	@echo "  $(BLUE)cursor$(RESET)               - Enable cursor visibility (Not 'the one', but it will do the job)."
 	@echo "  $(BLUE)accelerated$(RESET)          - Install the fbturbo Accelerated 2D graphics in X11 driver."
 	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
