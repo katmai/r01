@@ -162,6 +162,9 @@ notneeded:
 	@sudo systemctl disable iscsid.socket
 	@echo "$(GREEN)Containers would be silly...$(RESET)"
 	@sudo systemctl disable lxd-agent.service
+	@echo "$(GREEN)We're not using LVM...$(RESET)"
+	@sudo systemctl disable lvm2-lvmpolld.service
+	@sudo systemctl disable lvm2-lvmpolld.socket
 	@sudo reboot
 
 help:
