@@ -29,3 +29,4 @@ r01.temp    - shows the current temperature.
 r01.expand  - expands the "/" partition.  
 r01.systemd - a few systemd options i use more frequently to debug.  
 r01.undo    - undo fbterm.
+r01.stopx   - stop a startx session (tty1 - default. change variable if you prefer different).
