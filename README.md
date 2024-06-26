@@ -20,6 +20,7 @@ git clone https://github.com/katmai/r01.git
 ## Optional:
 - **make expand** - If you have a large sdcard and you'd like to expand the filesystem.
 - **make cursor** - Enable cursor visibility (Not 'the one', but it will do the job).
+- **make accelerated** - Install the fbturbo Accelerated 2D graphics in X11 driver.
 - **make fbterm** - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
 - **make revert** - Revert the majority to the original. (can't undo apt updates. that would be silly)
 

@@ -139,6 +139,13 @@ cursor:
 	@sudo /usr/sbin/u-boot-update
 	@sudo reboot
 
+# If this fails and your device display stops working, use these steps here to fix it:
+# https://forum.clockworkpi.com/t/r01-fbturbo-accelerated-2d-graphics-in-x11/8900/13
+accelerated:
+	@echo "$(BLUE)Installing the fbturbo Accelerated 2D graphics in X11 driver...$(RESET)"
+	@sudo apt install -y xf86-video-fbturbo-r01
+	@sudo reboot
+
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
 	@echo "Targets:"
@@ -155,6 +162,7 @@ help:
 	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
 	@echo "  $(YELLOW)revert$(RESET)             - Revert the majority to the original."
 	@echo "  $(BLUE)cursor$(RESET)               - Enable cursor visibility (Not 'the one', but it will do the job)."
+	@echo "  $(BLUE)accelerated$(RESET)          - Install the fbturbo Accelerated 2D graphics in X11 driver."
 	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
 	@echo "  $(BLUE)expand$(RESET)               - Expand the "/" partition to the maximum storage available on the sdcard."
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
