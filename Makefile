@@ -154,7 +154,7 @@ help:
 	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
 	@echo "  $(YELLOW)revert$(RESET)             - Revert everything to the original."
 	@echo "  $(BLUE)cursor$(RESET)               - Enable cursor visibility (Not 'the one', but it will do the job)."
-	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty."
+	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
 	@echo "  $(BLUE)expand$(RESET)               - Expand the "/" partition to the maximum storage available on the sdcard."
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
 
