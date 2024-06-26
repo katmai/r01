@@ -1,0 +1,3 @@
+#!/bin/bash
+LOGIN=$(ps -t 1 |grep login |awk '{print $1}')
+sudo kill -9 ${LOGIN}

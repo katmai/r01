@@ -151,6 +151,7 @@ help:
 	@echo "                                        r01.systemd - a few common systemd options."
 	@echo "                                        r01.temp    - check temperature."
 	@echo "                                        r01.undo    - undo a few things."
+	@echo "                                        r01.stopx   - stop a startx session (run on another tty)."
 	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
 	@echo "  $(YELLOW)revert$(RESET)             - Revert the majority to the original."
 	@echo "  $(BLUE)cursor$(RESET)               - Enable cursor visibility (Not 'the one', but it will do the job)."
