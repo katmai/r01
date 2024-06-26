@@ -1,0 +1,13 @@
+## /etc/default/u-boot - configuration file for u-boot-update(8)
+
+#U_BOOT_UPDATE="true"
+
+U_BOOT_ALTERNATIVES="default"
+#U_BOOT_DEFAULT="l0"
+#U_BOOT_ENTRIES="all"
+U_BOOT_MENU_LABEL="DevTerm R01 OS"
+U_BOOT_PARAMETERS="earlyprintk=sunxi-uart,0x02500000 clk_ignore_unused initcall_debug=0 console=ttyS0,115200 console=tty0 cma=8M LANG=en_US.UTF-8 fbcon=rotate:1 vt.cur_default=0xF00058"
+#U_BOOT_ROOT=""
+U_BOOT_TIMEOUT="0"
+U_BOOT_FDT="board.dtb"
+U_BOOT_FDT_DIR="/usr/lib/linux-image-"

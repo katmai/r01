@@ -14,7 +14,7 @@ BLUE=$(shell tput -Txterm setaf 6)
 RESET=$(shell tput -Txterm sgr0)
 
 # Just do it all
-all: console fixes updates tweaks binaries expand
+all: console fixes updates tweaks binaries cursor expand
 
 # First things first. Give us the console, without autologin.
 console:
@@ -72,6 +72,7 @@ tweaks:
 ## More systemctl
 # systemctl --user --reverse list-dependencies pulseaudio
 # systemctl --user list-dependencies default.target
+# systemd-analyze critical-chain
 
 binaries:
 	@echo "$(GREEN)Installing custom binaries...$(RESET)"
@@ -118,13 +119,25 @@ revert:
 expand:
 	@echo "$(BLUE)Expanding SD card...$(RESET)"
 	@sudo /bin/r01.expand
+
 fbterm:
 	@echo "$(BLUE)Adding the blinking pointer...$(RESET)"	
 	@cp -v ~/.bashrc ~/bak/.bashrc.bak
 	@cp -fv fbterm/.bash_profile ~/
-	@cp -fv fbterm/.bashrc ~/
+	@cp -fv fbterm/.bashrc.fbterm ~/.bashrc
 	@cp -fv fbterm/.fbtermrc ~/
 	@echo "$(BLUE)Now login via any of tty 1-6 and you will get it...$(RESET)"	
+
+# Some stuff i been thinking about when doing this
+# https://forum.clockworkpi.com/t/r01-devterm-changelog/13593
+cursor:
+	@echo "$(BLUE)Making the tty cursor visible on login...$(RESET)"
+	@cp -v ~/.bashrc ~/bak/.bashrc.bak
+	@echo cp -fv cursor/bashrc.cursor ~/.bashrc
+	@sudo cp -v /etc/default/u-boot ~/bak/u-boot.bak
+	@sudo cp -fv cursor/u-boot /etc/default/u-boot
+	@sudo /usr/sbin/u-boot-update
+	@reboot
 
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
@@ -137,11 +150,13 @@ help:
 	@echo "                                        r01.battery - a few battery options."
 	@echo "                                        r01.systemd - a few common systemd options."
 	@echo "                                        r01.temp    - check temperature."
+	@echo "                                        r01.undo    - undo a few things."
 	@echo "  $(GREEN)all$(RESET)                 - Just run everything and let it go."
 	@echo "  $(YELLOW)revert$(RESET)             - Revert everything to the original."
+	@echo "  $(BLUE)cursor$(RESET)               - Enable cursor visibility (Not 'the one', but it will do the job)."
 	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty."
 	@echo "  $(BLUE)expand$(RESET)               - Expand the "/" partition to the maximum storage available on the sdcard."
 	@echo "  $(GREEN)help$(RESET)                - Display this help message, providing information on available targets."
 
 # Phony targets
-.PHONY: all console fixes updates tweaks binaries revert expand fbterm help
+.PHONY: all console fixes updates tweaks binaries revert expand cursor fbterm help
