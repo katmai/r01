@@ -137,7 +137,7 @@ cursor:
 	@sudo cp -v /etc/default/u-boot ~/bak/u-boot.bak
 	@sudo cp -fv cursor/u-boot /etc/default/u-boot
 	@sudo /usr/sbin/u-boot-update
-	@reboot
+	@sudo reboot
 
 help:
 	@echo "$(BLUE)Usage: make [target]$(RESET)"
