@@ -120,6 +120,7 @@ expand:
 	@sudo /bin/r01.expand
 fbterm:
 	@echo "$(BLUE)Adding the blinking pointer...$(RESET)"	
+	@cp -v ~/.bashrc ~/bak/.bashrc.bak
 	@cp -fv fbterm/.bash_profile ~/
 	@cp -fv fbterm/.bashrc ~/
 	@cp -fv fbterm/.fbtermrc ~/

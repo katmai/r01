@@ -1,6 +1,11 @@
 # r01
 Modifications for the ClockworkPi DevTerm R01
 
+# What is this?
+You may notice that things here are awfully simple. i've tried to keep everything - if you want to look underneath - 1-2 commands away. For now, they will have to stay simple, until i get the behavior i want.  
+Everything today is a wrapper of a wrapper of another wrapper, and when i am trying to figure something out, i have to go through chains of dependencies when most of the times, all that's been abstracted into oblivion is: "cat $file".  
+
+## Instructions:
 0. It's preferable that you flash a fresh DevTerm install from: http://dl.clockworkpi.com/DevTerm_R01_v0.2a.img.bz2 . (You can use Balena Etcher to easily write to an SD Card)
 1. Once booted, you will first need to get internet connectivity: **Press Ctrl+Alt+n** to to open NetworkManager and connect to your favorite wi-fi.
 2. Open up a terminal **Ctrl+Alt+t** and clone the repo: 
@@ -21,3 +26,4 @@ r01.battery - gives a few battery insights.
 r01.temp    - shows the current temperature.  
 r01.expand  - expands the "/" partition.  
 r01.systemd - a few systemd options i use more frequently to debug.  
+r01.undo    - undo fbterm.

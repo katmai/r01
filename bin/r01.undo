@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# undo fbterm
+mv -fv ~/bak/.bashrc.bak ~/.bashrc
+rm -rfv ~/.bash_profile
+rm -rfv ~/.fbtermrc
