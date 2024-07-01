@@ -165,9 +165,6 @@ notneeded:
 	@echo "$(GREEN)We're not using LVM...$(RESET)"
 	@sudo systemctl disable lvm2-lvmpolld.service
 	@sudo systemctl disable lvm2-lvmpolld.socket
-	@echo "$(GREEN)if we're using the device, i think we have plenty of entropy...$(RESET)"
-	@sudo systemctl disable systemd-random-seed.service
-	@sudo systemctl mask systemd-random-seed.service
 	@echo "$(GREEN)Let NetworkManager handle the network...$(RESET)"
 	@sudo /bin/r01.network
 	@sudo reboot
@@ -189,6 +186,7 @@ help:
 	@echo "  $(YELLOW)revert$(RESET)             - Revert the majority to the original."
 	@echo "  $(BLUE)notneeded$(RESET)            - This is a list of services that i personally don't see the need for, but which you may want to enable in some specific cases where you need particular functionality."
 	@echo "  $(BLUE)cursor$(RESET)               - Enable cursor visibility (Not 'the one', but it will do the job)."
+	@echo "  $(BLUE)tools$(RESET)                - A few tools like swapping between graphical or text boot modes, and others."
 	@echo "  $(BLUE)accelerated$(RESET)          - Install the fbturbo Accelerated 2D graphics in X11 driver."
 	@echo "  $(BLUE)fbterm$(RESET)               - Enable the blinking cursor while logged on tty. (It looks like a duck, quacks like a duck, but it's not a duck)"
 	@echo "  $(BLUE)expand$(RESET)               - Expand the "/" partition to the maximum storage available on the sdcard."

@@ -28,7 +28,8 @@ git clone https://github.com/katmai/r01.git
 ## Various utilities
 r01.battery - gives a few battery insights.  
 r01.temp    - shows the current temperature.  
-r01.expand  - expands the "/" partition.  
+r01.tools   - A few tools like swapping between graphical or text boot modes, and others.  
 r01.systemd - a few systemd options i use more frequently to debug.  
+r01.stopx   - stop a startx session (tty1 - default. change variable if you prefer different).  
+r01.expand  - expands the "/" partition.  
 r01.undo    - undo fbterm.
-r01.stopx   - stop a startx session (tty1 - default. change variable if you prefer different).
