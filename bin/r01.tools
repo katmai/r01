@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Define the commands for each option
+ENTROPY_CMD="cat /proc/sys/kernel/random/entropy_avail"
+TEXT_CMD="sudo systemctl set-default multi-user.target"
+GRAPHICAL_CMD="sudo systemctl set-default graphical.target"
+
+# Function to display the menu and read the user choice
+choose_option() {
+    echo "Please choose an option:"
+    echo "1) Available entropy"
+    echo "2) Set boot target to text mode"
+    echo "3) Set boot target to graphical mode"
+    read -p "Enter the number of your choice: " choice
+}
+
+# If no arguments are passed, prompt the user to choose
+if [ $# -eq 0 ]; then
+    choose_option
+    case $choice in
+        1)
+            eval $ENTROPY_CMD
+            ;;
+        2)
+            eval $TEXT_CMD
+            ;;
+        3)
+            eval $GRAPHICAL_CMD
+            ;;        
+        *)
+            echo "Invalid choice. Please run the script again."
+            ;;
+    esac
+else
+    echo "This script does not accept arguments. Run without arguments to choose an option."
+fi

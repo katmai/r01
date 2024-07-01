@@ -165,6 +165,11 @@ notneeded:
 	@echo "$(GREEN)We're not using LVM...$(RESET)"
 	@sudo systemctl disable lvm2-lvmpolld.service
 	@sudo systemctl disable lvm2-lvmpolld.socket
+	@echo "$(GREEN)if we're using the device, i think we have plenty of entropy...$(RESET)"
+	@sudo systemctl disable systemd-random-seed.service
+	@sudo systemctl mask systemd-random-seed.service
+	@echo "$(GREEN)Let NetworkManager handle the network...$(RESET)"
+	@sudo /bin/r01.network
 	@sudo reboot
 
 help:

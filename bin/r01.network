@@ -1,0 +1,27 @@
+#!/bin/bash
+## Let NetworkManager handle network connectivity
+sudo systemctl disable networkd-dispatcher
+sudo systemctl disable systemd-networkd
+sudo systemctl disable systemd-resolved
+sudo systemctl mask networkd-dispatcher
+sudo systemctl mask systemd-networkd
+sudo systemctl mask systemd-resolved
+
+## fix resolv.conf
+# stop NetworkManager from updating resolv.conf
+sudo cat >> /etc/NetworkManager/conf.d/90-dns-none.conf << EOF
+[main]
+dns=none
+EOF
+# google cloudflare and quad9
+rm -rf /etc/resolv.conf
+cat >> /etc/resolv.conf << EOF
+nameserver 8.8.8.8
+nameserver 9.9.9.9
+nameserver 1.1.1.1
+EOF
+
+systemctl reload NetworkManager
+
+NetworkManager --print-config |grep dns
+# ^^ this should say "none"

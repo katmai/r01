@@ -6,5 +6,5 @@ rm -rfv ~/.bash_profile
 rm -rfv ~/.fbtermrc
 
 # undo cursor
-mv -fv ~/bak/.bashrc.bak ~/.bashrc
-mv -fv ~/bak/u-boot.bak /etc/default/u-boot
+#mv -fv ~/bak/.bashrc.bak ~/.bashrc
+#mv -fv ~/bak/u-boot.bak /etc/default/u-boot
